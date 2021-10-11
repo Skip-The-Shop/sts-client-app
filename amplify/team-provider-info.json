@@ -1,0 +1,54 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-corporatewellness-dev-112815-authRole",
+      "UnauthRoleArn": "arn:aws:iam::602811002790:role/amplify-corporatewellness-dev-112815-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::602811002790:role/amplify-corporatewellness-dev-112815-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-corporatewellness-dev-112815-deployment",
+      "UnauthRoleName": "amplify-corporatewellness-dev-112815-unauthRole",
+      "StackName": "amplify-corporatewellness-dev-112815",
+      "StackId": "arn:aws:cloudformation:us-east-2:602811002790:stack/amplify-corporatewellness-dev-112815/0a64e3e0-60c5-11eb-aea8-0a7769755218",
+      "AmplifyAppId": "d2300l37ten68a"
+    },
+    "categories": {
+      "auth": {
+        "corporatewellnessf3998931": {}
+      },
+      "function": {
+        "userCreate": {
+          "deploymentBucketName": "amplify-corporatewellness-dev-112815-deployment",
+          "s3Key": "amplify-builds/userCreate-7731796b62315564654a-build.zip"
+        },
+        "userRemove": {
+          "deploymentBucketName": "amplify-corporatewellness-dev-112815-deployment",
+          "s3Key": "amplify-builds/userRemove-464d6f69766747314f7a-build.zip"
+        },
+        "userUpdate": {
+          "deploymentBucketName": "amplify-corporatewellness-dev-112815-deployment",
+          "s3Key": "amplify-builds/userUpdate-36455a554e444445655a-build.zip"
+        },
+        "userCheckIn": {
+          "deploymentBucketName": "amplify-corporatewellness-dev-112815-deployment",
+          "s3Key": "amplify-builds/userCheckIn-4d3844344e4872555a6b-build.zip"
+        },
+        "addTutorials": {
+          "deploymentBucketName": "amplify-corporatewellness-dev-112815-deployment",
+          "s3Key": "amplify-builds/addTutorials-372f4630305344617a61-build.zip"
+        },
+        "intitialLogin": {
+          "deploymentBucketName": "amplify-corporatewellness-dev-112815-deployment",
+          "s3Key": "amplify-builds/intitialLogin-5661696858354e556e66-build.zip"
+        },
+        "notificationLambda": {
+          "deploymentBucketName": "amplify-corporatewellness-dev-112815-deployment",
+          "s3Key": "amplify-builds/notificationLambda-2f43784b2b4a56425238-build.zip"
+        },
+        "challengeSendInvite": {
+          "deploymentBucketName": "amplify-corporatewellness-dev-112815-deployment",
+          "s3Key": "amplify-builds/challengeSendInvite-494c35357a3069547770-build.zip"
+        }
+      }
+    }
+  }
+}
