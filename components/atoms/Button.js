@@ -15,10 +15,13 @@ const styles = {
     fontSize: 16,
   },
 };
-const Button = ({text, buttonStyle, textStyle, onPress}) => {
+const Button = ({text, buttonStyle, textStyle, onPress, disabled}) => {
   const {buttonText, buttonWrapper} = styles;
   return (
-    <TouchableOpacity onPress={onPress} style={[buttonWrapper, buttonStyle]}>
+    <TouchableOpacity
+      disabled={disabled}
+      onPress={onPress}
+      style={[buttonWrapper, buttonStyle]}>
       <Text style={[buttonText, textStyle]}>{text}</Text>
     </TouchableOpacity>
   );
