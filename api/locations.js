@@ -31,3 +31,16 @@ export const saveLocation = async ({Location}) => {
       console.log({err});
     });
 };
+
+export const deleteLocation = async ({Location}) => {
+  const {AddressId} = Location;
+  return axios
+    .delete(`${API_URL}/api/v1/location/${AddressId}`)
+    .then(location => {
+      const {data} = location;
+      return location;
+    })
+    .catch(err => {
+      console.log({err});
+    });
+};

@@ -50,6 +50,7 @@
     "react-native-safe-area-context": "^3.2.0",
     "react-native-screens": "^3.4.0",
     "react-native-svg": "^12.1.1",
+    "react-native-swipeout": "^2.3.6",
     "react-native-swiper": "1.6.0",
     "react-native-track-player": "^1.2.7",
     "react-native-unordered-list": "^1.0.4",

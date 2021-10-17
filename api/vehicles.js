@@ -29,3 +29,16 @@ export const saveVehicle = async ({Vehicle}) => {
       console.log({err});
     });
 };
+
+export const deleteVehicle = async ({Vehicle}) => {
+  const {VehicleId} = Vehicle;
+  return axios
+    .delete(`${API_URL}/api/v1/vehicle/${VehicleId}`)
+    .then(vehicle => {
+      const {data} = vehicle;
+      return vehicle;
+    })
+    .catch(err => {
+      console.log({err});
+    });
+};

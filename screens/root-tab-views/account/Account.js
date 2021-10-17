@@ -18,18 +18,23 @@ const Account = ({navigation}) => {
   const [refreshToggle, setRefreshToggle] = useState(false);
 
   const getData = async () => {
-    setRefreshing(true);
-    const v = await getVehiclesForUser({UserId: user.UserId});
-    v.forEach(vl => {
-      vl['label'] = `${vl.Year} ${vl.Make} ${vl.Model}`;
-    });
-    const l = await getLocationsForUser({UserId: user.UserId});
-    l.forEach(loc => {
-      loc['label'] = `${loc.StreetAddress}, ${loc.City}, ${loc.Province}`;
-    });
-    setLocations(l);
-    setVehicles(v);
-    setRefreshing(false);
+    try {
+      setRefreshing(true);
+      const v = await getVehiclesForUser({UserId: user.UserId});
+      v.forEach(vl => {
+        vl['label'] = `${vl.Year} ${vl.Make} ${vl.Model}`;
+      });
+      const l = await getLocationsForUser({UserId: user.UserId});
+      l.forEach(loc => {
+        loc['label'] = `${loc.StreetAddress}, ${loc.City}, ${loc.Province}`;
+      });
+      setLocations(l);
+      setVehicles(v);
+    } catch (e) {
+      console.log({e});
+    } finally {
+      setRefreshing(false);
+    }
   };
 
   useEffect(() => {

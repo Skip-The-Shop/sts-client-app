@@ -10,14 +10,12 @@ const CreateAccount = ({navigation}) => {
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <SafeAreaView style={{justifyContent: 'space-between', height: '100%'}}>
         <View>
-          <Button text="Create Account with Google" />
-          <Button text="Create Account with Google" />
-          <TextDivider text="Or" />
           <Input placeholder="Email" />
           <Input placeholder="Phone Number" />
           <Input placeholder="Password" />
           <Input placeholder="Confirm Password" />
           <Button
+            buttonStyle={{marginTop: 8}}
             onPress={() => {
               navigation.push('VehicleInfo');
             }}
