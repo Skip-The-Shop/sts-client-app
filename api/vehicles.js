@@ -7,18 +7,18 @@ export const getVehiclesForUser = async ({UserId}) => {
   });
 };
 
-export const saveLocation = async ({Location}) => {
-  const {Latitude, Longitude, StreetAddress, City, Province, IsHome, UserId} =
-    Location;
+export const saveVehicle = async ({Vehicle}) => {
+  const {UserId, Year, Make, Model, Trim, Color, KMs, VIN} = Vehicle;
   return axios
-    .post(`${API_URL}/api/v1/location/`, {
-      Latitude,
-      Longitude,
-      StreetAddress,
-      City,
-      Province,
-      IsHome,
+    .post(`${API_URL}/api/v1/vehicle/`, {
       UserId,
+      Year,
+      Make,
+      Model,
+      Trim,
+      Color,
+      KMs,
+      VIN,
     })
     .then(location => {
       const {data} = location;

@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 
-const Service = ({user}) => {
-  const [serviceHistory, setServiceHistory] = useState([]);
+const ViewService = ({route}) => {
+  const {items, user, refreshToggle, setRefreshToggle} = route.params;
   const renderItem = ({item, index}) => <Text>iuerbg</Text>;
   return (
     <View>
@@ -21,7 +21,7 @@ const Service = ({user}) => {
         </TouchableOpacity>
       </View>
       <FlatList
-        data={serviceHistory}
+        data={items}
         renderItem={renderItem}
         ListEmptyComponent={() => (
           <Text style={{marginTop: 8}}>No Recent Services Rendered</Text>
@@ -31,4 +31,4 @@ const Service = ({user}) => {
   );
 };
 
-export default Service;
+export default ViewService;
