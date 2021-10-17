@@ -14,7 +14,7 @@ export const saveLocation = async ({Location}) => {
   const {Latitude, Longitude, StreetAddress, City, Province, IsHome, UserId} =
     Location;
   return axios
-    .post(`${API_URL}/api/v1/vehicle/`, {
+    .post(`${API_URL}/api/v1/location/`, {
       Latitude,
       Longitude,
       StreetAddress,

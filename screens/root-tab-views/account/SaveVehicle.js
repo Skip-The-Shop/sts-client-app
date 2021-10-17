@@ -7,8 +7,8 @@ import {saveVehicle} from '../../../api/vehicles';
 
 const WIDTH = '49%';
 
-const SaveVehicle = ({route}) => {
-  const {user} = route.params;
+const SaveVehicle = ({route, navigation}) => {
+  const {user, refreshToggle, setRefreshToggle} = route.params;
   const [vehicleInfo, setVehicleInfo] = useState({});
   const handleUpdate = ({key, value}) => {
     let obj = vehicleInfo;
@@ -19,6 +19,8 @@ const SaveVehicle = ({route}) => {
     let req = vehicleInfo;
     req['UserId'] = user.UserId;
     await saveVehicle({Vehicle: req});
+    setRefreshToggle(!refreshToggle);
+    navigation.goBack();
   };
   return (
     <KeyboardAwareScrollView

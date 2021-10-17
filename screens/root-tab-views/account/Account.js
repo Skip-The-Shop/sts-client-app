@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Text, View} from 'react-native';
+import {Text, View, RefreshControl} from 'react-native';
 import {Icon} from 'react-native-elements';
 import {AuthContext} from '../../../hooks/getAuth';
 import Button from '../../../components/atoms/Button';
@@ -11,12 +11,14 @@ import {ScrollView} from 'react-native-gesture-handler';
 const Account = ({navigation}) => {
   const {logout, user} = useContext(AuthContext);
   const {Name, Email, PhoneNumber} = user;
+  const [refreshing, setRefreshing] = useState(false);
   const [vehicles, setVehicles] = useState([]);
   const [locations, setLocations] = useState([]);
   const [serviceHistory, setServiceHistory] = useState([]);
   const [refreshToggle, setRefreshToggle] = useState(false);
 
   const getData = async () => {
+    setRefreshing(true);
     const v = await getVehiclesForUser({UserId: user.UserId});
     v.forEach(vl => {
       vl['label'] = `${vl.Year} ${vl.Make} ${vl.Model}`;
@@ -27,6 +29,7 @@ const Account = ({navigation}) => {
     });
     setLocations(l);
     setVehicles(v);
+    setRefreshing(false);
   };
 
   useEffect(() => {
@@ -52,6 +55,9 @@ const Account = ({navigation}) => {
   ];
   return (
     <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={getData} />
+      }
       contentContainerStyle={{
         flex: 1,
         justifyContent: 'space-between',

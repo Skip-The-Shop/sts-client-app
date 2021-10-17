@@ -1,10 +1,13 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, FlatList, TouchableOpacity} from 'react-native';
 import {Icon} from 'react-native-elements/dist/icons/Icon';
 import {COLORS} from '../../../constants';
+import {getLocationsForUser} from '../../../api/locations';
 
 const UpdateLocations = ({route, navigation}) => {
   const {items, user, refreshToggle, setRefreshToggle} = route.params;
+  const [locations, setLocations] = useState(items);
+  const [refreshing, setRefreshing] = useState(false);
   const setHeaderConfig = () => {
     navigation.setOptions({
       headerRight: () => (
@@ -12,6 +15,8 @@ const UpdateLocations = ({route, navigation}) => {
           onPress={() =>
             navigation.navigate('SaveLocation', {
               user,
+              refreshToggle,
+              setRefreshToggle,
             })
           }
           style={{
@@ -32,9 +37,25 @@ const UpdateLocations = ({route, navigation}) => {
       ),
     });
   };
+
+  navigation.addListener('focus', () => {
+    getLocations();
+  });
+
   useEffect(() => {
     setHeaderConfig();
   }, []);
+
+  const getLocations = () => {
+    setRefreshing(true);
+    getLocationsForUser({UserId: user.UserId}).then(loc => {
+      loc.forEach(loc => {
+        loc['label'] = `${loc.StreetAddress}, ${loc.City}, ${loc.Province}`;
+      });
+      setLocations(loc);
+      setRefreshing(false);
+    });
+  };
 
   const renderItem = ({item}) => (
     <View style={{paddingVertical: 12}}>
@@ -49,7 +70,9 @@ const UpdateLocations = ({route, navigation}) => {
         flex: 1,
         backgroundColor: '#FFF',
       }}
-      data={items}
+      refreshing={refreshing}
+      onRefresh={getLocations}
+      data={locations}
       renderItem={renderItem}
     />
   );

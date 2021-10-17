@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, FlatList, TouchableOpacity} from 'react-native';
+import {View, TouchableOpacity} from 'react-native';
 import {saveLocation} from '../../../api/locations';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import Button from '../../../components/atoms/Button';
@@ -29,10 +29,12 @@ const UpdateLocations = ({route, navigation}) => {
 
   const {user, refreshToggle, setRefreshToggle} = route.params;
   const [locationToSave, setLocationToSave] = useState({});
+  navigation.addListener('focus', () => setRefreshToggle(!refreshToggle));
 
   const saveLocationForUser = async () => {
     await saveLocation({Location: locationToSave});
     setRefreshToggle(!refreshToggle);
+    navigation.goBack();
   };
 
   return (

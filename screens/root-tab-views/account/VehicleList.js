@@ -1,14 +1,17 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, FlatList, TouchableOpacity} from 'react-native';
 import {Icon} from 'react-native-elements/dist/icons/Icon';
 import {COLORS} from '../../../constants';
+import {getVehiclesForUser} from '../../../api/vehicles';
 
 const UpdateVehicle = ({route, navigation}) => {
-  const {items, user} = route.params;
-
-  useEffect(() => {
-    setHeaderConfig();
-  }, []);
+  const {items, user, refreshToggle, setRefreshToggle} = route.params;
+  const [vehicles, setVehicles] = useState(items);
+  const [refreshing, setRefreshing] = useState(false);
+  navigation.addListener('focus', () => {
+    setRefreshToggle(!refreshToggle);
+    getVehicles();
+  });
 
   const setHeaderConfig = () => {
     navigation.setOptions({
@@ -17,6 +20,8 @@ const UpdateVehicle = ({route, navigation}) => {
           onPress={() =>
             navigation.navigate('SaveVehicle', {
               user,
+              refreshToggle,
+              setRefreshToggle,
             })
           }
           style={{
@@ -38,6 +43,22 @@ const UpdateVehicle = ({route, navigation}) => {
     });
   };
 
+  const getVehicles = () => {
+    setRefreshing(true);
+    getVehiclesForUser({UserId: user.UserId}).then(res => {
+      res.forEach(vl => {
+        vl.label = `${vl.Year} ${vl.Make} ${vl.Model}`;
+      });
+      setVehicles(res);
+      setRefreshing(false);
+    });
+  };
+
+  useEffect(() => {
+    setHeaderConfig();
+    getVehicles();
+  }, []);
+
   const renderItem = ({item}) => (
     <View style={{paddingVertical: 12}}>
       <Text style={{fontSize: 16}}>{item.label}</Text>
@@ -46,7 +67,12 @@ const UpdateVehicle = ({route, navigation}) => {
 
   return (
     <View style={{backgroundColor: '#FFF', flex: 1, padding: 12}}>
-      <FlatList data={items} renderItem={renderItem} />
+      <FlatList
+        refreshing={refreshing}
+        onRefresh={getVehicles}
+        data={vehicles}
+        renderItem={renderItem}
+      />
     </View>
   );
 };
