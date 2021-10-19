@@ -5,7 +5,6 @@ export const getLocationsForUser = async ({UserId}) => {
   return axios
     .get(`${API_URL}/api/v1/location/user/${UserId}`)
     .then(locations => {
-      console.log({locations});
       return locations.data;
     });
 };

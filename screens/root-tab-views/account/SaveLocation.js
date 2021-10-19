@@ -27,13 +27,11 @@ const UpdateLocations = ({route, navigation}) => {
     });
   }, []);
 
-  const {user, refreshToggle, setRefreshToggle} = route.params;
+  const {user} = route.params;
   const [locationToSave, setLocationToSave] = useState(null);
-  navigation.addListener('focus', () => setRefreshToggle(!refreshToggle));
 
   const saveLocationForUser = async () => {
     await saveLocation({Location: locationToSave});
-    setRefreshToggle(!refreshToggle);
     navigation.goBack();
   };
 
