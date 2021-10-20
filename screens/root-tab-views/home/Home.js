@@ -1,11 +1,18 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {ScrollView, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  ScrollView,
+  Text,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+} from 'react-native';
 import Picker from './Picker';
 import {serviceTypes} from './config';
 import {getVehiclesForUser} from '../../../api/vehicles';
 import {getLocationsForUser} from '../../../api/locations';
 import {AuthContext} from '../../../hooks/getAuth';
 import {TextInput} from 'react-native-gesture-handler';
+import Images from './Images';
 
 const styles = StyleSheet.create({
   container: {
@@ -38,6 +45,7 @@ const Home = ({navigation}) => {
     obj[key] = value;
     setServiceRequest({...obj});
   };
+  const [images, setImages] = useState([]);
 
   const getParsedVehicles = () => {
     const {UserId} = user;
@@ -123,6 +131,7 @@ const Home = ({navigation}) => {
         multiline
         placeholder="Notes"
       />
+      <Images images={images} setImages={setImages} />
     </ScrollView>
   );
 };
