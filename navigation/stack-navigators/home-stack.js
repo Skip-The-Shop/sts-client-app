@@ -1,19 +1,21 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {Home} from '../../screens/root-tab-views';
 import {SaveLocation} from '../../screens/root-tab-views/account';
 import {SaveVehicle} from '../../screens/root-tab-views/account';
+import Services from '../../screens/root-tab-views/home/Services';
+import RequestService from '../../screens/root-tab-views/home/Home';
 
 const Stack = createStackNavigator();
 
 const HomeStack = () => (
   <Stack.Navigator>
+    <Stack.Screen name="Services" component={Services} />
     <Stack.Screen
       options={{
         title: 'Request Service',
       }}
-      name="Home"
-      component={Home}
+      name="RequestService"
+      component={RequestService}
     />
     <Stack.Screen
       name="SaveLocation"

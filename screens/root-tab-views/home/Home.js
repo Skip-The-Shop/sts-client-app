@@ -16,6 +16,7 @@ import Images from './Images';
 import {postImage} from '../../../api/media';
 import {COLORS} from '../../../constants';
 import {bookService} from '../../../api/service';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 const styles = StyleSheet.create({
   container: {
@@ -56,7 +57,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const Home = ({navigation}) => {
+const RequestService = ({navigation}) => {
   const {
     container,
     title,
@@ -69,6 +70,7 @@ const Home = ({navigation}) => {
   const [serviceRequest, setServiceRequest] = useState({});
   const [vehicles, setVehicles] = useState([]);
   const [locations, setLocations] = useState([]);
+  const [loading, setLoading] = useState(false);
   const handleUpdateServiceRequest = (key, value) => {
     let obj = serviceRequest;
     obj[key] = value;
@@ -100,8 +102,6 @@ const Home = ({navigation}) => {
     });
   };
 
-  console.log({serviceRequest});
-
   navigation.addListener('focus', () => {
     getParsedVehicles();
   });
@@ -129,22 +129,30 @@ const Home = ({navigation}) => {
   ];
 
   const requestService = async () => {
-    const {ServiceType, Notes, Location, Vehicle} = serviceRequest;
-    const {UserId} = user;
-    const res = await bookService({
-      ServiceType,
-      Notes,
-      Created: new Date().getTime(),
-      LocationId: Location,
-      ShopNotes: null,
-      UserId,
-      VehicleId: Vehicle,
-    });
-    Promise.all(
-      images.map(
-        async el => await postImage(res.data.ServiceId, 'Service', el),
-      ),
-    );
+    try {
+      setLoading(true);
+      const {ServiceType, Notes, Location, Vehicle} = serviceRequest;
+      const {UserId} = user;
+      const res = await bookService({
+        ServiceType,
+        Notes,
+        Created: new Date().getTime(),
+        LocationId: Location,
+        ShopNotes: null,
+        UserId,
+        VehicleId: Vehicle,
+      });
+      Promise.all(
+        images.map(
+          async el => await postImage(res.data.ServiceId, 'Service', el),
+        ),
+      );
+    } catch (e) {
+      console.log({e});
+    } finally {
+      setLoading(false);
+      navigation.goBack();
+    }
   };
 
   return (
@@ -181,8 +189,9 @@ const Home = ({navigation}) => {
       <TouchableOpacity onPress={requestService} style={buttonWrapper}>
         <Text style={buttonText}>Request Service</Text>
       </TouchableOpacity>
+      <Spinner visible={loading} />
     </ScrollView>
   );
 };
 
-export default Home;
+export default RequestService;

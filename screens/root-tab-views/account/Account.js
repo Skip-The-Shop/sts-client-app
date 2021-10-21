@@ -52,11 +52,6 @@ const Account = ({navigation}) => {
       label: 'Your Pickup Locations',
       items: locations,
     },
-    {
-      route: 'ServiceList',
-      label: 'Your Service History',
-      items: [],
-    },
   ];
   return (
     <ScrollView

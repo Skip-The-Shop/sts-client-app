@@ -28,3 +28,14 @@ export const bookService = ({
     })
     .catch(err => console.log({err}));
 };
+
+export const getServicesByUserId = ({UserId}) => {
+  return axios
+    .get(`${API_URL}/api/v1/service/user/${UserId}`)
+    .then(services => {
+      const {data} = services;
+      console.log({services});
+      return data;
+    })
+    .catch(err => console.log({err}));
+};
