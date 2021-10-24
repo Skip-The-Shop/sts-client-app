@@ -4,6 +4,7 @@ import {SaveLocation} from '../../screens/root-tab-views/account';
 import {SaveVehicle} from '../../screens/root-tab-views/account';
 import Services from '../../screens/root-tab-views/home/Services';
 import RequestService from '../../screens/root-tab-views/home/Home';
+import ServiceDetails from '../../screens/root-tab-views/home/ServiceDetails';
 
 const Stack = createStackNavigator();
 
@@ -29,6 +30,13 @@ const HomeStack = () => (
       component={SaveVehicle}
       options={{
         title: 'Add Pickup Location',
+      }}
+    />
+    <Stack.Screen
+      name="ServiceDetails"
+      component={ServiceDetails}
+      options={{
+        title: 'Service Details',
       }}
     />
   </Stack.Navigator>

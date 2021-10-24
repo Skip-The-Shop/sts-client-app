@@ -11,18 +11,12 @@ const Services = ({navigation}) => {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  navigation.addListener('focus', () => getServices());
-
-  const getServices = async () => {
-    try {
-      setLoading(true);
-      const s = await getServicesByUserId({UserId});
+  const getServices = () => {
+    // setLoading(true);
+    getServicesByUserId({UserId}).then(s => {
       setServices(s);
-    } catch (e) {
-      console.log({e});
-    } finally {
-      setLoading(false);
-    }
+      // setLoading(false);
+    });
   };
 
   useEffect(() => {
@@ -54,12 +48,14 @@ const Services = ({navigation}) => {
     });
   }, []);
 
-  const renderItem = ({item, index}) => <Service item={item} index={index} />;
+  const renderItem = ({item, index}) => (
+    <Service item={item} index={index} navigation={navigation} />
+  );
 
   return (
     <FlatList
       refreshing={loading}
-      onRefresh={getServices}
+      onRefresh={() => getServices()}
       style={{backgroundColor: COLORS.WHITE, padding: 12}}
       data={services}
       renderItem={renderItem}

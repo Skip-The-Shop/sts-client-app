@@ -1,4 +1,4 @@
-const API_URL = 'http://127.0.0.1:3000';
+const API_URL = 'http://ec2-3-143-242-200.us-east-2.compute.amazonaws.com:80';
 import axios from 'axios';
 
 export const bookService = ({
@@ -36,6 +36,17 @@ export const getServicesByUserId = ({UserId}) => {
       const {data} = services;
       console.log({services});
       return data;
+    })
+    .catch(err => console.log({err}));
+};
+
+export const getServiceById = ({ServiceId}) => {
+  return axios
+    .get(`${API_URL}/api/v1/service/${ServiceId}`)
+    .then(service => {
+      const {data} = service;
+      console.log({data});
+      return data[0];
     })
     .catch(err => console.log({err}));
 };

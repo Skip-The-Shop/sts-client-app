@@ -1,4 +1,4 @@
-const API_URL = 'http://127.0.0.1:3000';
+const API_URL = 'http://ec2-3-143-242-200.us-east-2.compute.amazonaws.com:80';
 import axios from 'axios';
 
 export const getVehiclesForUser = async ({UserId}) => {

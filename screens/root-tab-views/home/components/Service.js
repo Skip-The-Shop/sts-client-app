@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import moment from 'moment';
 import {Icon} from 'react-native-elements';
 import {FlatList} from 'react-native-gesture-handler';
+import FastImage from 'react-native-fast-image';
 
 const styles = StyleSheet.create({
   container: {
@@ -29,14 +30,14 @@ const styles = StyleSheet.create({
   },
 });
 
-const Service = ({item, index}) => {
+const Service = ({item, index, navigation}) => {
   const {ServiceType, Created, Media, Notes} = item;
   const {container, metaContainer, iconWrapper, requestedText} = styles;
   const [showDetails, setShowDetails] = useState(false);
   const renderItem = ({item, index}) => {
     const {ResourceUrl} = item;
     return (
-      <Image
+      <FastImage
         borderRadius={6}
         source={{uri: ResourceUrl}}
         style={{
@@ -50,12 +51,11 @@ const Service = ({item, index}) => {
   };
   return (
     <View style={container}>
-      <TouchableOpacity style={metaContainer}>
+      <TouchableOpacity
+        onPress={() => navigation.push('ServiceDetails', {item})}
+        style={metaContainer}>
         <View>
-          <Text style={{marginBottom: 8}}>
-            <Text style={{fontWeight: 'bold'}}>Service Type: </Text>
-            {ServiceType}
-          </Text>
+          <Text style={{marginBottom: 8}}>{ServiceType}</Text>
           <Text style={requestedText}>
             Requested: {moment(parseInt(Created)).format('MMMM Do YYYY')}
           </Text>
@@ -72,7 +72,9 @@ const Service = ({item, index}) => {
       {showDetails ? (
         <>
           <FlatList horizontal data={Media} renderItem={renderItem} />
-          <Text style={{marginTop: 8}}>Notes: {Notes}</Text>
+          <Text style={{marginTop: 8}}>
+            <Text style={{fontWeight: 'bold'}}>Notes:</Text> {Notes}
+          </Text>
         </>
       ) : null}
     </View>

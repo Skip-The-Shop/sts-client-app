@@ -142,16 +142,16 @@ const RequestService = ({navigation}) => {
         UserId,
         VehicleId: Vehicle,
       });
-      Promise.all(
+      await Promise.all(
         images.map(
           async el => await postImage(res.data.ServiceId, 'Service', el),
         ),
       );
-    } catch (e) {
-      console.log({e});
-    } finally {
       setLoading(false);
       navigation.goBack();
+    } catch (e) {
+      console.log({e});
+      setLoading(false);
     }
   };
 
