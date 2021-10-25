@@ -9,6 +9,7 @@ const SignInStack = () => (
     <Stack.Screen
       options={{
         headerShown: false,
+        title: 'Sign In',
       }}
       name="SignIn"
       component={SignIn}

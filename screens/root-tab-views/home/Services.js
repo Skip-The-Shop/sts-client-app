@@ -1,5 +1,5 @@
 import React, {useEffect, useContext, useState} from 'react';
-import {FlatList, Text, TouchableOpacity} from 'react-native';
+import {FlatList, Text, View, TouchableOpacity, Image} from 'react-native';
 import {getServicesByUserId} from '../../../api/service';
 import {AuthContext} from '../../../hooks/getAuth';
 import {COLORS} from '../../../constants';
@@ -59,6 +59,35 @@ const Services = ({navigation}) => {
       style={{backgroundColor: COLORS.WHITE, padding: 12}}
       data={services}
       renderItem={renderItem}
+      ListEmptyComponent={() => (
+        <View style={{marginTop: '75%'}}>
+          <Image
+            style={{
+              height: 100,
+              width: 150,
+              resizeMode: 'contain',
+              alignSelf: 'center',
+            }}
+            source={require('../../../images/_logo.png')}
+          />
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('RequestService', {
+                user,
+              })
+            }
+            style={{
+              backgroundColor: COLORS.BLUE,
+              padding: 12,
+              borderRadius: 6,
+            }}>
+            <Text
+              style={{textAlign: 'center', color: '#FFF', fontWeight: 'bold'}}>
+              Book A Service
+            </Text>
+          </TouchableOpacity>
+        </View>
+      )}
       ListHeaderComponent={
         services && services.length > 0
           ? () => (

@@ -1,7 +1,8 @@
 import React from 'react';
-import {KeyboardAvoidingView, Platform, Text, View} from 'react-native';
+import {KeyboardAvoidingView, Platform, Text, View, Image} from 'react-native';
 import {TextDivider, Button, Input} from '../../../components/atoms';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import Logo from '../../../components/atoms/Logo';
 
 const CreateAccount = ({navigation}) => {
   return (
@@ -10,6 +11,7 @@ const CreateAccount = ({navigation}) => {
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <SafeAreaView style={{justifyContent: 'space-between', height: '100%'}}>
         <View>
+          <Logo />
           <Input placeholder="Email" />
           <Input placeholder="Phone Number" />
           <Input placeholder="Password" />

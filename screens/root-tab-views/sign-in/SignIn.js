@@ -1,8 +1,9 @@
 import React, {useState, useContext} from 'react';
-import {KeyboardAvoidingView, Platform, Text, View} from 'react-native';
+import {KeyboardAvoidingView, Platform, Text, View, Image} from 'react-native';
 import {Button, Input} from '../../../components/atoms';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {AuthContext} from '../../../hooks/getAuth';
+import Logo from '../../../components/atoms/Logo';
 
 const SignIn = ({navigation}) => {
   const {handleLogin, getSession} = useContext(AuthContext);
@@ -21,6 +22,7 @@ const SignIn = ({navigation}) => {
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <SafeAreaView style={{justifyContent: 'space-between', height: '100%'}}>
         <View>
+          <Logo />
           <Input
             value={email}
             onChangeText={setEmail}
