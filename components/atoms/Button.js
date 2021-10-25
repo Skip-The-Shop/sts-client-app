@@ -21,7 +21,11 @@ const Button = ({text, buttonStyle, textStyle, onPress, disabled}) => {
     <TouchableOpacity
       disabled={disabled}
       onPress={onPress}
-      style={[buttonWrapper, buttonStyle]}>
+      style={[
+        buttonWrapper,
+        buttonStyle,
+        disabled ? {backgroundColor: '#979797'} : null,
+      ]}>
       <Text style={[buttonText, textStyle]}>{text}</Text>
     </TouchableOpacity>
   );

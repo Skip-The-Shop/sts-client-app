@@ -11,8 +11,8 @@ const SignIn = ({navigation}) => {
   const [password, setPassword] = useState('');
 
   const loginRequest = async () => {
-    handleLogin({email, password});
-    getSession();
+    await handleLogin({email, password});
+    await getSession();
   };
   const navigateToSignUp = () => navigation.push('CreateAccount');
 
