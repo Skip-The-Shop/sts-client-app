@@ -11,6 +11,8 @@ const Services = ({navigation}) => {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  navigation.addListener('focus', () => getServices());
+
   const getServices = () => {
     // setLoading(true);
     getServicesByUserId({UserId}).then(s => {

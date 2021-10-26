@@ -9,14 +9,22 @@ const styles = {
     marginTop: 8,
   },
 };
-const Input = ({placeholder, value, onChangeText, inputStyle}) => {
+const Input = ({
+  placeholder,
+  value,
+  onChangeText,
+  inputStyle,
+  secure = false,
+}) => {
   const {inputWrapper} = styles;
   return (
     <TextInput
+      secureTextEntry={secure}
       value={value}
       onChangeText={onChangeText}
       style={[inputWrapper, inputStyle]}
       placeholder={placeholder}
+      placeholderTextColor="#979797"
     />
   );
 };

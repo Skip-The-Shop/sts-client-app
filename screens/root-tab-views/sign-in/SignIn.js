@@ -32,6 +32,7 @@ const SignIn = ({navigation}) => {
             value={password}
             onChangeText={setPassword}
             placeholder="Password"
+            secure
           />
           <Button
             buttonStyle={{marginTop: 8, marginBottom: 8}}
