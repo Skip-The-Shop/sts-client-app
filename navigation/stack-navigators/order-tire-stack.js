@@ -1,14 +1,24 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import OrderTires from '../../screens/root-tab-views/order-tires';
+import {
+  PlaceOrder,
+  OrderHistory,
+} from '../../screens/root-tab-views/order-tires';
 
 const Stack = createStackNavigator();
 
 const OrderTireStack = () => (
   <Stack.Navigator>
     <Stack.Screen
-      name="OrderTires"
-      component={OrderTires}
+      name="OrderHistory"
+      component={OrderHistory}
+      options={{
+        title: 'Order History',
+      }}
+    />
+    <Stack.Screen
+      name="PlaceOrder"
+      component={PlaceOrder}
       options={{
         title: 'Order Tires',
       }}
