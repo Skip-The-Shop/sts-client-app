@@ -1,14 +1,18 @@
 export const serviceTypes = [
   {
-    label: 'Autobody',
-    value: 'Autobody',
+    label: 'Autobody & Glass',
+    value: 'Autobody & Glass',
   },
   {
-    label: 'Diagnosis',
-    value: 'Diagnosis',
+    label: 'Mechanical Diagnosis',
+    value: 'Mechanical Diagnosis',
   },
   {
     label: 'Request a Tow',
-    value: 'Tow',
+    value: 'Request a Tow',
+  },
+  {
+    label: 'Manitaob Vehicle Safety Inspection',
+    value: 'Manitaob Vehicle Safety Inspection',
   },
 ];

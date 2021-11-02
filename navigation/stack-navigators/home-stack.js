@@ -13,7 +13,7 @@ const HomeStack = () => (
     <Stack.Screen name="Services" component={Services} />
     <Stack.Screen
       options={{
-        title: 'Request Service',
+        title: 'Request Quote',
       }}
       name="RequestService"
       component={RequestService}
@@ -29,7 +29,7 @@ const HomeStack = () => (
       name="SaveVehicle"
       component={SaveVehicle}
       options={{
-        title: 'Add Pickup Location',
+        title: 'Add New Vehicle',
       }}
     />
     <Stack.Screen

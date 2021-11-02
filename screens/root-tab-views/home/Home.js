@@ -187,7 +187,7 @@ const RequestService = ({navigation}) => {
         <Images images={images} setImages={setImages} />
       </View>
       <TouchableOpacity onPress={requestService} style={buttonWrapper}>
-        <Text style={buttonText}>Request Service</Text>
+        <Text style={buttonText}>Request Quote</Text>
       </TouchableOpacity>
       <Spinner visible={loading} />
     </ScrollView>

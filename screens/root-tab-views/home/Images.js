@@ -51,7 +51,7 @@ const Images = ({images, setImages}) => {
           justifyContent: 'space-between',
           marginTop: 12,
         }}>
-        <Text style={{fontWeight: 'bold'}}>Photos (Optional)</Text>
+        <Text style={{fontWeight: 'bold'}}>Photos</Text>
         <View
           style={{
             flexDirection: 'row',

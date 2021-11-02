@@ -6,7 +6,7 @@ import FastImage from 'react-native-fast-image';
 
 const ServiceDetails = ({route, navigation}) => {
   const {item} = route.params;
-  const [service, setService] = useState({});
+  const [service, setService] = useState({item});
   const {
     ServiceType,
     Media,
@@ -21,7 +21,6 @@ const ServiceDetails = ({route, navigation}) => {
   useEffect(() => {
     const {ServiceId} = item;
     getServiceById({ServiceId}).then(s => {
-      console.log({s});
       setService(s);
     });
   }, []);

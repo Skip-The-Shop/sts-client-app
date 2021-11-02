@@ -85,7 +85,24 @@ const Services = ({navigation}) => {
             }}>
             <Text
               style={{textAlign: 'center', color: '#FFF', fontWeight: 'bold'}}>
-              Book A Service
+              Request A Quote
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('SaveVehicle', {
+                user,
+              })
+            }
+            style={{
+              backgroundColor: COLORS.BLACK,
+              padding: 12,
+              borderRadius: 6,
+              marginTop: 8,
+            }}>
+            <Text
+              style={{textAlign: 'center', color: '#FFF', fontWeight: 'bold'}}>
+              Add A Vehicle
             </Text>
           </TouchableOpacity>
         </View>

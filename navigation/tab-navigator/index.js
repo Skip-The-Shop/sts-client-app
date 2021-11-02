@@ -1,6 +1,12 @@
 import React, {useContext} from 'react';
+import {Image} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {SignInStack, HomeStack, AccountStack} from '../stack-navigators';
+import {
+  SignInStack,
+  HomeStack,
+  AccountStack,
+  OrderTireStack,
+} from '../stack-navigators';
 import {AuthContext} from '../../hooks/getAuth';
 import {Icon} from 'react-native-elements';
 import {COLORS} from '../../constants';
@@ -24,6 +30,17 @@ const getIconSource = ({route, focused}) => {
           name="user"
           type="font-awesome"
           color={focused ? COLORS.BLUE : '#979797'}
+        />
+      );
+    case 'OrderTires':
+      return (
+        <Image
+          style={{height: 45, width: 45, resizeMode: 'contain'}}
+          source={
+            focused
+              ? require('../../images/active_tire.png')
+              : require('../../images/inactive_tire.png')
+          }
         />
       );
   }
@@ -52,6 +69,13 @@ export default function BottomTabNavigator() {
       ) : (
         <>
           <Tab.Screen name="Home" component={HomeStack} />
+          <Tab.Screen
+            name="OrderTires"
+            options={{
+              title: 'Order Tires',
+            }}
+            component={OrderTireStack}
+          />
           <Tab.Screen name="Account" component={AccountStack} />
         </>
       )}
