@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
 });
 
 const Service = ({item, index, navigation}) => {
-  const {ServiceType, Created, Media, Notes} = item;
+  const {ServiceType, Created, Media, Notes, ShopNotes, Price} = item;
   const {container, metaContainer, iconWrapper, requestedText} = styles;
   const [showDetails, setShowDetails] = useState(false);
   const renderItem = ({item, index}) => {
@@ -55,7 +55,9 @@ const Service = ({item, index, navigation}) => {
         onPress={() => navigation.push('ServiceDetails', {item})}
         style={metaContainer}>
         <View>
-          <Text style={{marginBottom: 8}}>{ServiceType}</Text>
+          <Text style={{marginBottom: 8, fontWeight: 'bold'}}>
+            {ServiceType}
+          </Text>
           <Text style={requestedText}>
             Requested: {moment(parseInt(Created)).format('MMMM Do YYYY')}
           </Text>
@@ -74,6 +76,15 @@ const Service = ({item, index, navigation}) => {
           <FlatList horizontal data={Media} renderItem={renderItem} />
           <Text style={{marginTop: 8}}>
             <Text style={{fontWeight: 'bold'}}>Notes:</Text> {Notes}
+          </Text>
+          {ShopNotes ? (
+            <Text style={{marginTop: 8}}>
+              <Text style={{fontWeight: 'bold'}}>Shop Notes:</Text> {ShopNotes}
+            </Text>
+          ) : null}
+          <Text style={{marginTop: 8}}>
+            <Text style={{fontWeight: 'bold'}}>Price:</Text>{' '}
+            {Price ? Price : 'Price Pending'}
           </Text>
         </>
       ) : null}

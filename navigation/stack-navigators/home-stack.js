@@ -5,6 +5,7 @@ import {SaveVehicle} from '../../screens/root-tab-views/account';
 import Services from '../../screens/root-tab-views/home/Services';
 import RequestService from '../../screens/root-tab-views/home/Home';
 import ServiceDetails from '../../screens/root-tab-views/home/ServiceDetails';
+import Messages from '../../screens/root-tab-views/messages/Messages';
 
 const Stack = createStackNavigator();
 
@@ -37,6 +38,13 @@ const HomeStack = () => (
       component={ServiceDetails}
       options={{
         title: 'Service Details',
+      }}
+    />
+    <Stack.Screen
+      name="Messages"
+      component={Messages}
+      options={{
+        title: 'Chat',
       }}
     />
   </Stack.Navigator>

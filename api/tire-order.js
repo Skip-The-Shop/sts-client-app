@@ -28,3 +28,12 @@ export const listOrderByUser = ({UserId}) => {
     })
     .catch(err => console.log({err}));
 };
+
+export const acceptTireOrderQuote = ({TireOrderId}) =>
+  axios
+    .patch(`${API_URL}/api/v1/tire-order/quote/${TireOrderId}`)
+    .then(ord => {
+      const {data} = ord;
+      return data;
+    })
+    .catch(err => console.log({err}));

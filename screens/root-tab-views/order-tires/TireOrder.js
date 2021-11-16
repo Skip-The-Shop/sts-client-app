@@ -1,5 +1,8 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import Button from '../../../components/atoms/Button';
+import {acceptTireOrderQuote} from '../../../api/tire-order';
+import {Icon} from 'react-native-elements/dist/icons/Icon';
 
 const styles = StyleSheet.create({
   orderTitle: {
@@ -12,9 +15,22 @@ const styles = StyleSheet.create({
   },
 });
 
-const TireOrder = ({item}) => {
-  const {TreadWidth, Profile, Diameter, Quantity, TireType, Price} = item;
+const TireOrder = ({item, getOrders}) => {
+  const {
+    TreadWidth,
+    Profile,
+    Diameter,
+    Quantity,
+    TireType,
+    Price,
+    QuoteAccepted,
+    TireOrderid,
+  } = item;
   const {orderTitle, measurements} = styles;
+  const handleAcceptTireQuote = async () => {
+    await acceptTireOrderQuote({TireOrderId: TireOrderid});
+    await getOrders();
+  };
   return (
     <View
       style={{
@@ -29,10 +45,33 @@ const TireOrder = ({item}) => {
         <Text style={measurements}>
           Measurements: {TreadWidth}/{Profile}/{Diameter}
         </Text>
+        <Text style={{alignSelf: 'flex-start'}}>
+          {Price > 0 ? `$${Price}` : 'Price Pending'}
+        </Text>
       </View>
-      <Text style={{alignSelf: 'center'}}>
-        {Price > 0 ? Price : 'Price Pending'}
-      </Text>
+      <View>
+        {QuoteAccepted ? (
+          <View style={{flexDirection: 'row'}}>
+            <Text style={{color: 'green', alignSelf: 'center'}}>
+              Price Accepted
+            </Text>
+            <Icon name="check" type="font-awesome" color="green" />
+          </View>
+        ) : Price > 0 ? (
+          <Button
+            onPress={handleAcceptTireQuote}
+            buttonStyle={{
+              height: 30,
+              padding: 0,
+              justifyContent: 'center',
+              width: 100,
+              marginTop: 8,
+            }}
+            textStyle={{fontSize: 12}}
+            text="Accept Quote"
+          />
+        ) : null}
+      </View>
     </View>
   );
 };

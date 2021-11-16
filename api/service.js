@@ -34,7 +34,6 @@ export const getServicesByUserId = ({UserId}) => {
     .get(`${API_URL}/api/v1/service/user/${UserId}`)
     .then(services => {
       const {data} = services;
-      console.log({services});
       return data;
     })
     .catch(err => console.log({err}));
@@ -50,3 +49,12 @@ export const getServiceById = ({ServiceId}) => {
     })
     .catch(err => console.log({err}));
 };
+
+export const acceptServiceQuote = ({ServiceId}) =>
+  axios
+    .patch(`${API_URL}/api/v1/service/quote/${ServiceId}`)
+    .then(ser => {
+      const {data} = ser;
+      return data;
+    })
+    .catch(err => console.log(err));

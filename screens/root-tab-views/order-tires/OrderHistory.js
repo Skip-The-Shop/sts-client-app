@@ -30,9 +30,11 @@ const OrderHistory = ({navigation}) => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const renderItem = ({item, index}) => <TireOrder item={item} key={index} />;
+  const renderItem = ({item, index}) => (
+    <TireOrder getOrders={getOrders} item={item} key={index} />
+  );
 
-  const getOrders = () => {
+  const getOrders = async () => {
     setLoading(true);
     try {
       listOrderByUser({UserId: user.UserId}).then(data => {

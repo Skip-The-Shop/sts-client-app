@@ -14,10 +14,9 @@ const Services = ({navigation}) => {
   navigation.addListener('focus', () => getServices());
 
   const getServices = () => {
-    // setLoading(true);
     getServicesByUserId({UserId}).then(s => {
+      console.log({s});
       setServices(s);
-      // setLoading(false);
     });
   };
 
@@ -107,15 +106,6 @@ const Services = ({navigation}) => {
           </TouchableOpacity>
         </View>
       )}
-      ListHeaderComponent={
-        services && services.length > 0
-          ? () => (
-              <Text style={{fontSize: 18, fontWeight: 'bold'}}>
-                Service History
-              </Text>
-            )
-          : null
-      }
     />
   );
 };

@@ -56,11 +56,11 @@ const Images = ({images, setImages}) => {
           style={{
             flexDirection: 'row',
             width: 60,
-            justifyContent: 'space-between',
+            justifyContent: 'flex-end',
           }}>
-          <TouchableOpacity onPress={() => launchCamera()}>
+          {/* <TouchableOpacity onPress={() => launchCamera()}>
             <Icon name="camera" type="font-awesome" />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <TouchableOpacity
             onPress={() => {
               const options = {
