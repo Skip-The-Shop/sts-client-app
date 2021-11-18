@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Button from '../../../components/atoms/Button';
 import {acceptTireOrderQuote} from '../../../api/tire-order';
 import {Icon} from 'react-native-elements/dist/icons/Icon';
@@ -12,10 +12,11 @@ const styles = StyleSheet.create({
   measurements: {
     color: '#979797',
     fontSize: 14,
+    marginTop: 6,
   },
 });
 
-const TireOrder = ({item, getOrders}) => {
+const TireOrder = ({item, getOrders, navigation}) => {
   const {
     TreadWidth,
     Profile,
@@ -32,7 +33,13 @@ const TireOrder = ({item, getOrders}) => {
     await getOrders();
   };
   return (
-    <View
+    <TouchableOpacity
+      onPress={() =>
+        navigation.push('Messages', {
+          TargetId: TireOrderid,
+          TargetTypeCode: 'TireOrder',
+        })
+      }
       style={{
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -45,13 +52,13 @@ const TireOrder = ({item, getOrders}) => {
         <Text style={measurements}>
           Measurements: {TreadWidth}/{Profile}/{Diameter}
         </Text>
-        <Text style={{alignSelf: 'flex-start'}}>
+        <Text style={{alignSelf: 'flex-start', marginTop: 6}}>
           {Price > 0 ? `$${Price}` : 'Price Pending'}
         </Text>
       </View>
       <View>
         {QuoteAccepted ? (
-          <View style={{flexDirection: 'row'}}>
+          <View style={{flexDirection: 'row', marginTop: 12}}>
             <Text style={{color: 'green', alignSelf: 'center'}}>
               Price Accepted
             </Text>
@@ -72,7 +79,7 @@ const TireOrder = ({item, getOrders}) => {
           />
         ) : null}
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

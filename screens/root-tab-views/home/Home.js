@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {
   ScrollView,
   Text,
@@ -102,9 +102,9 @@ const RequestService = ({navigation}) => {
     });
   };
 
-  navigation.addListener('focus', () => {
+  useEffect(() => {
     getParsedVehicles();
-  });
+  }, []);
 
   const fields = [
     {

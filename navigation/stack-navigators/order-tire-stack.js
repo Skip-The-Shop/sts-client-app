@@ -4,6 +4,7 @@ import {
   PlaceOrder,
   OrderHistory,
 } from '../../screens/root-tab-views/order-tires';
+import Messages from '../../screens/root-tab-views/messages/Messages';
 
 const Stack = createStackNavigator();
 
@@ -21,6 +22,13 @@ const OrderTireStack = () => (
       component={PlaceOrder}
       options={{
         title: 'Order Tires',
+      }}
+    />
+    <Stack.Screen
+      name="Messages"
+      component={Messages}
+      options={{
+        title: 'Chat',
       }}
     />
   </Stack.Navigator>

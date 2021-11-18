@@ -5,23 +5,30 @@ import {AuthContext} from '../../../hooks/getAuth';
 import {COLORS} from '../../../constants';
 import Service from './components/Service';
 import {Icon} from 'react-native-elements/dist/icons/Icon';
+import {useFocusEffect} from '@react-navigation/native';
+
 const Services = ({navigation}) => {
   const {user} = useContext(AuthContext);
   const {UserId} = user;
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  navigation.addListener('focus', () => getServices());
+  useFocusEffect(
+    React.useCallback(() => {
+      getServices();
+    }, []),
+  );
 
   const getServices = () => {
+    setLoading(true);
     getServicesByUserId({UserId}).then(s => {
       console.log({s});
       setServices(s);
+      setLoading(false);
     });
   };
 
   useEffect(() => {
-    getServices();
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity

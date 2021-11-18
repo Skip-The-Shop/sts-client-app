@@ -40,7 +40,7 @@ const Messages = ({navigation, route}) => {
   };
   return (
     <GiftedChat
-      messages={messages}
+      messages={messages.reverse()}
       onInputTextChanged={data => setMessage(data)}
       onSend={sendMessage}
       user={{

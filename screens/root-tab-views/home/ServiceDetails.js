@@ -40,9 +40,11 @@ const ServiceDetails = ({route, navigation}) => {
         </TouchableOpacity>
       ),
     });
-    getServiceById({ServiceId}).then(s => {
-      setService(s);
-    });
+    getServiceById({ServiceId})
+      .then(s => {
+        setService(s);
+      })
+      .catch(err => console.log({err}));
   }, []);
   const renderItem = ({item, index}) => (
     <FastImage
@@ -64,21 +66,12 @@ const ServiceDetails = ({route, navigation}) => {
         flex: 1,
       }}>
       <View>
-        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-          <Text style={{fontWeight: 'bold'}}>Service Type:</Text>
-          <Text>{ServiceType}</Text>
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            marginTop: 12,
-          }}>
-          <Text style={{fontWeight: 'bold'}}>Vehicle:</Text>
-          <Text>
-            {Year} {Make} {Model}
-          </Text>
-        </View>
+        <Text style={{fontWeight: 'bold'}}>Service Type:</Text>
+        <Text style={{marginTop: 12, marginBottom: 12}}>{ServiceType}</Text>
+        <Text style={{fontWeight: 'bold'}}>Vehicle:</Text>
+        <Text style={{marginTop: 12}}>
+          {Year} {Make} {Model}
+        </Text>
         <FlatList
           style={{marginTop: 12}}
           horizontal
@@ -113,13 +106,13 @@ const ServiceDetails = ({route, navigation}) => {
               color="green"
             />
           </View>
-        ) : (
+        ) : Price ? (
           <Button
             onPress={handleAcceptServiceQuote}
             buttonStyle={{marginTop: 16}}
             text="Accept Quote"
           />
-        )}
+        ) : null}
       </View>
     </ScrollView>
   );

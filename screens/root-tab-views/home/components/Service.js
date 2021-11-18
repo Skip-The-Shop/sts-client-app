@@ -7,12 +7,9 @@ import FastImage from 'react-native-fast-image';
 
 const styles = StyleSheet.create({
   container: {
-    borderBottomColor: '#000',
-    borderBottomWidth: 1,
     paddingBottom: 8,
   },
   metaContainer: {
-    height: 40,
     marginTop: 12,
     justifyContent: 'space-between',
     flexDirection: 'row',
@@ -23,10 +20,12 @@ const styles = StyleSheet.create({
     height: 30,
     borderRadius: 15,
     justifyContent: 'center',
+    marginTop: 6,
   },
   requestedText: {
     fontSize: 11,
     color: '#979797',
+    marginTop: 6,
   },
 });
 
@@ -55,7 +54,13 @@ const Service = ({item, index, navigation}) => {
         onPress={() => navigation.push('ServiceDetails', {item})}
         style={metaContainer}>
         <View>
-          <Text style={{marginBottom: 8, fontWeight: 'bold'}}>
+          <Text
+            style={{
+              marginBottom: 8,
+              fontWeight: 'bold',
+              fontSize: 16,
+              marginBottom: 12,
+            }}>
             {ServiceType}
           </Text>
           <Text style={requestedText}>

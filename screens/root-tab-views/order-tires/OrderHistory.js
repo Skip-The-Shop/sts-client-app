@@ -6,6 +6,7 @@ import {AuthContext} from '../../../hooks/getAuth';
 import {listOrderByUser} from '../../../api/tire-order';
 import {FlatList} from 'react-native-gesture-handler';
 import TireOrder from './TireOrder';
+import {useFocusEffect} from '@react-navigation/native';
 
 const styles = StyleSheet.create({
   container: {
@@ -26,19 +27,30 @@ const styles = StyleSheet.create({
 const OrderHistory = ({navigation}) => {
   const {user} = useContext(AuthContext);
   const {container, iconWrapper} = styles;
-  navigation.addListener('focus', () => getOrders());
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const renderItem = ({item, index}) => (
-    <TireOrder getOrders={getOrders} item={item} key={index} />
+  useFocusEffect(
+    React.useCallback(() => {
+      getOrders();
+    }, []),
   );
 
-  const getOrders = async () => {
-    setLoading(true);
+  const renderItem = ({item, index}) => (
+    <TireOrder
+      getOrders={getOrders}
+      item={item}
+      key={index}
+      navigation={navigation}
+    />
+  );
+
+  const getOrders = () => {
     try {
+      setLoading(true);
       listOrderByUser({UserId: user.UserId}).then(data => {
         setOrders(data);
+        console.log({data});
         setLoading(false);
       });
     } catch (e) {
@@ -67,7 +79,7 @@ const OrderHistory = ({navigation}) => {
   return (
     <FlatList
       refreshing={loading}
-      onRefresh={getOrders}
+      onRefresh={() => getOrders()}
       contentContainerStyle={container}
       data={orders}
       renderItem={renderItem}

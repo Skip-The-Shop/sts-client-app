@@ -12,7 +12,7 @@ export const serviceTypes = [
     value: 'Request a Tow',
   },
   {
-    label: 'Manitaob Vehicle Safety Inspection',
-    value: 'Manitaob Vehicle Safety Inspection',
+    label: 'Manitoba Vehicle Safety Inspection',
+    value: 'Manitoba Vehicle Safety Inspection',
   },
 ];
