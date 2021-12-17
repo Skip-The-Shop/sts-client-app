@@ -27,12 +27,13 @@ const AuthProvider = ({children}) => {
   };
 
   const handleRegister = async ({Name, Email, Password, PhoneNumber}) => {
-    await register({
+    const reg = await register({
       Name,
       Email,
       Password,
       PhoneNumber,
     });
+    return reg;
   };
 
   const logout = async () => {

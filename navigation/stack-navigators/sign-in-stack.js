@@ -16,6 +16,7 @@ const SignInStack = () => (
     />
     <Stack.Screen
       options={{
+        headerShown: false,
         title: 'Create Account',
       }}
       name="CreateAccount"

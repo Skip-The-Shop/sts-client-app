@@ -4,15 +4,19 @@ import {Button, Input} from '../../../components/atoms';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {AuthContext} from '../../../hooks/getAuth';
 import Logo from '../../../components/atoms/Logo';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 const SignIn = ({navigation}) => {
   const {handleLogin, getSession} = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const loginRequest = async () => {
+    setLoading(true);
     await handleLogin({email, password});
     await getSession();
+    setLoading(false);
   };
   const navigateToSignUp = () => navigation.push('CreateAccount');
 
@@ -45,6 +49,7 @@ const SignIn = ({navigation}) => {
           Don't have an account yet? Create one!
         </Text>
       </SafeAreaView>
+      <Spinner visible={loading} textContent="Just a moment..." />
     </KeyboardAvoidingView>
   );
 };
