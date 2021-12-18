@@ -1,32 +1,12 @@
-import React, {useState, useEffect} from 'react';
-import {View, TouchableOpacity} from 'react-native';
+import React, {useState} from 'react';
+import {View} from 'react-native';
 import {saveLocation} from '../../../api/locations';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import Button from '../../../components/atoms/Button';
-import {Icon} from 'react-native-elements/dist/icons/Icon';
-import {COLORS} from '../../../constants';
 
 const GOOGLE_API_KEY = 'AIzaSyA_CDDCwvesTmDSUeLN9p-SRfO0UhbLxhc';
 
 const UpdateLocations = ({route, navigation}) => {
-  useEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <TouchableOpacity
-          style={{
-            backgroundColor: COLORS.BLUE,
-            height: 40,
-            width: 40,
-            borderRadius: 20,
-            marginRight: 8,
-            justifyContent: 'center',
-          }}>
-          <Icon color={COLORS.WHITE} type="font-awesome" name="plus" />
-        </TouchableOpacity>
-      ),
-    });
-  }, []);
-
   const {user} = route.params;
   const [locationToSave, setLocationToSave] = useState(null);
 

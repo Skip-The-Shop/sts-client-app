@@ -46,19 +46,15 @@ const OrderHistory = ({navigation}) => {
   );
 
   const getOrders = () => {
-    try {
-      setLoading(true);
-      listOrderByUser({UserId: user.UserId}).then(data => {
-        setOrders(data);
-        console.log({data});
-        setLoading(false);
-      });
-    } catch (e) {
-      console.log({e});
-    }
+    setLoading(true);
+    listOrderByUser({UserId: user.UserId}).then(data => {
+      setOrders(data);
+      console.log({data});
+      setLoading(false);
+    });
   };
 
-  useEffect(async () => {
+  useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity
@@ -79,10 +75,15 @@ const OrderHistory = ({navigation}) => {
   return (
     <FlatList
       refreshing={loading}
-      onRefresh={() => getOrders()}
+      onRefresh={getOrders}
       contentContainerStyle={container}
       data={orders}
       renderItem={renderItem}
+      ListEmptyComponent={() => (
+        <View style={{marginTop: '50%'}}>
+          <Text style={{textAlign: 'center'}}>No Previous Tire Orders</Text>
+        </View>
+      )}
     />
   );
 };

@@ -17,7 +17,7 @@ import {postImage} from '../../../api/media';
 import {COLORS} from '../../../constants';
 import {bookService} from '../../../api/service';
 import Spinner from 'react-native-loading-spinner-overlay';
-
+import {useFocusEffect} from '@react-navigation/native';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -102,9 +102,11 @@ const RequestService = ({navigation}) => {
     });
   };
 
-  useEffect(() => {
-    getParsedVehicles();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      getParsedVehicles();
+    }, []),
+  );
 
   const fields = [
     {

@@ -15,6 +15,7 @@ const Input = ({
   onChangeText,
   inputStyle,
   secure = false,
+  keyboardType = 'default',
 }) => {
   const {inputWrapper} = styles;
   return (
@@ -25,6 +26,7 @@ const Input = ({
       style={[inputWrapper, inputStyle]}
       placeholder={placeholder}
       placeholderTextColor="#979797"
+      keyboardType={keyboardType}
     />
   );
 };

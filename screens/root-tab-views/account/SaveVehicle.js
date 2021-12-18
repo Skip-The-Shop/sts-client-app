@@ -49,6 +49,7 @@ const SaveVehicle = ({route, navigation}) => {
             onChangeText={text => handleUpdate({key: 'Year', value: text})}
             inputStyle={{width: WIDTH}}
             placeholder="Year"
+            keyboardType="numeric"
           />
           <Input
             onChangeText={text => handleUpdate({key: 'Colour', value: text})}
@@ -70,6 +71,7 @@ const SaveVehicle = ({route, navigation}) => {
             onChangeText={text => handleUpdate({key: 'KMs', value: text})}
             inputStyle={{width: WIDTH}}
             placeholder="Kms"
+            keyboardType="numeric"
           />
         </View>
         <Input
