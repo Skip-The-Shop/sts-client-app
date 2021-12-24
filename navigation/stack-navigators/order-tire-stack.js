@@ -5,6 +5,7 @@ import {
   OrderHistory,
 } from '../../screens/root-tab-views/order-tires';
 import Messages from '../../screens/root-tab-views/messages/Messages';
+import {SaveVehicle} from '../../screens/root-tab-views/account';
 
 const Stack = createStackNavigator();
 
@@ -29,6 +30,13 @@ const OrderTireStack = () => (
       component={Messages}
       options={{
         title: 'Chat',
+      }}
+    />
+    <Stack.Screen
+      name="SaveVehicle"
+      component={SaveVehicle}
+      options={{
+        title: 'Add New Vehicle',
       }}
     />
   </Stack.Navigator>

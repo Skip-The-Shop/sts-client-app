@@ -1,11 +1,19 @@
-import React, {useState, useContext} from 'react';
-import {View, ScrollView, StyleSheet} from 'react-native';
+import React, {useState, useContext, useEffect} from 'react';
+import {
+  View,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+} from 'react-native';
 import Input from '../../../components/atoms/Input';
 import Button from '../../../components/atoms/Button';
 import Picker from '../home/Picker';
 import {tireTypes, getIncrementalValuesUpToLimit} from '.';
 import {placeTireOrder} from '../../../api/tire-order';
 import {AuthContext} from '../../../hooks/getAuth';
+import {getVehiclesForUser} from '../../../api/vehicles';
+import {useFocusEffect} from '@react-navigation/native';
 
 const styles = StyleSheet.create({
   container: {
@@ -21,6 +29,7 @@ const styles = StyleSheet.create({
 
 const PlaceOrder = ({navigation}) => {
   const {user} = useContext(AuthContext);
+  const [vehicles, setVehicles] = useState([]);
   const [tireOrderRequest, setTireOrderRequest] = useState({});
   const placeOrder = async () => {
     await placeTireOrder(tireOrderRequest);
@@ -32,6 +41,22 @@ const PlaceOrder = ({navigation}) => {
     obj['UserId'] = user.UserId;
     setTireOrderRequest({...tireOrderRequest});
   };
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const {UserId} = user;
+      getVehiclesForUser({UserId}).then(v => {
+        const parsedVehicles = v.reduce((acc, curr) => {
+          acc.push({
+            label: `${curr.Year} ${curr.Make} ${curr.Model}`,
+            value: curr.VehicleId,
+          });
+          return acc;
+        }, []);
+        setVehicles(parsedVehicles);
+      });
+    }, []),
+  );
 
   const {container, thirdInput} = styles;
   return (
@@ -68,8 +93,29 @@ const PlaceOrder = ({navigation}) => {
           placeholder="What Type Of Tires?"
           serviceKey="TireType"
         />
+        {vehicles && vehicles.length > 0 ? (
+          <Picker
+            zIndex={0}
+            handleUpdateServiceRequest={updateTireOrderRequest}
+            items={vehicles}
+            placeholder="Which Vehicle Are These For?"
+            serviceKey="Vehicle"
+          />
+        ) : (
+          <TouchableOpacity
+            onPress={() => navigation.push('SaveVehicle', {user})}
+            style={{
+              borderColor: '#000',
+              borderWidth: 2,
+              padding: 16,
+              marginTop: 12,
+              borderRadius: 6,
+            }}>
+            <Text>Which Vehicle Are These For?</Text>
+          </TouchableOpacity>
+        )}
       </View>
-      <Button onPress={placeOrder} text="Place Order" />
+      <Button onPress={placeOrder} text="Request Quote" />
     </ScrollView>
   );
 };

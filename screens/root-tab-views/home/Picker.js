@@ -16,7 +16,7 @@ const Picker = ({
   }, [value]);
   return (
     <DropDownPicker
-      containerStyle={{marginTop: 12}}
+      containerStyle={{marginTop: 12, borderWidth: 1, borderRadius: 10}}
       placeholder={placeholder}
       open={open}
       value={value}
