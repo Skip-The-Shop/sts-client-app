@@ -5,6 +5,7 @@ import {
   StyleSheet,
   View,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import Picker from './Picker';
 import {serviceTypes} from './config';
@@ -132,25 +133,29 @@ const RequestService = ({navigation}) => {
 
   const requestService = async () => {
     try {
-      setLoading(true);
       const {ServiceType, Notes, Location, Vehicle} = serviceRequest;
       const {UserId} = user;
-      const res = await bookService({
-        ServiceType,
-        Notes,
-        Created: new Date().getTime(),
-        LocationId: Location,
-        ShopNotes: null,
-        UserId,
-        VehicleId: Vehicle,
-      });
-      await Promise.all(
-        images.map(
-          async el => await postImage(res.data.ServiceId, 'Service', el),
-        ),
-      );
-      setLoading(false);
-      navigation.goBack();
+      if (ServiceType && Notes && Location && Location) {
+        setLoading(true);
+        const res = await bookService({
+          ServiceType,
+          Notes,
+          Created: new Date().getTime(),
+          LocationId: Location,
+          ShopNotes: null,
+          UserId,
+          VehicleId: Vehicle,
+        });
+        await Promise.all(
+          images.map(
+            async el => await postImage(res.data.ServiceId, 'Service', el),
+          ),
+        );
+        setLoading(false);
+        navigation.goBack();
+      } else {
+        Alert.alert('Please complete all fields');
+      }
     } catch (e) {
       console.log({e});
       setLoading(false);
