@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Text,
+  Alert,
 } from 'react-native';
 import Input from '../../../components/atoms/Input';
 import Button from '../../../components/atoms/Button';
@@ -32,8 +33,14 @@ const PlaceOrder = ({navigation}) => {
   const [vehicles, setVehicles] = useState([]);
   const [tireOrderRequest, setTireOrderRequest] = useState({});
   const placeOrder = async () => {
-    await placeTireOrder(tireOrderRequest);
-    navigation.goBack();
+    const {TreadWidth, Profile, Diameter, Quantity, TireType, Vehicle} =
+      tireOrderRequest;
+    if (TreadWidth && Profile && Diameter && Quantity && TireType && Vehicle) {
+      await placeTireOrder(tireOrderRequest);
+      navigation.goBack();
+    } else {
+      Alert.alert('Please complete all fields');
+    }
   };
   const updateTireOrderRequest = (key, val) => {
     let obj = tireOrderRequest;
