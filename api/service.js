@@ -10,6 +10,7 @@ export const bookService = ({
   ShopNotes,
   UserId,
   VehicleId,
+  PickupTime,
 }) => {
   return axios
     .post(`${API_URL}/api/v1/service`, {
@@ -21,6 +22,7 @@ export const bookService = ({
       ShopNotes,
       UserId,
       VehicleId,
+      PickupTime,
     })
     .then(res => {
       console.log({res: res.data});

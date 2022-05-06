@@ -140,15 +140,12 @@ const RequestService = ({navigation}) => {
     },
   ];
 
-  const handlePickupTimeChange = time => {
-    console.log({time});
-  };
-
   const requestService = async () => {
     try {
       const {ServiceType, Notes, Location, Vehicle} = serviceRequest;
       const {UserId} = user;
       if (ServiceType && Notes && Location && Location) {
+        console.log({pickupTime: pickupTime.date});
         setLoading(true);
         const res = await bookService({
           ServiceType,
@@ -158,7 +155,7 @@ const RequestService = ({navigation}) => {
           ShopNotes: null,
           UserId,
           VehicleId: Vehicle,
-          PickupTime: pickupTime.date,
+          PickupTime: pickupTime.date.toString(),
         });
         await Promise.all(
           images.map(
