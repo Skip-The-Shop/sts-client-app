@@ -68,7 +68,7 @@ const Services = ({navigation}) => {
       data={services}
       renderItem={renderItem}
       ListEmptyComponent={() => (
-        <View style={{marginTop: '75%'}}>
+        <View style={{marginTop: '50%'}}>
           <Image
             style={{
               height: 100,
@@ -91,7 +91,7 @@ const Services = ({navigation}) => {
             }}>
             <Text
               style={{textAlign: 'center', color: '#FFF', fontWeight: 'bold'}}>
-              Request A Quote
+              Services
             </Text>
           </TouchableOpacity>
           <TouchableOpacity

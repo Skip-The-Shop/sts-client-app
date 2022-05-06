@@ -16,7 +16,7 @@ const Account = ({navigation}) => {
   const [locations, setLocations] = useState([]);
   const [serviceHistory, setServiceHistory] = useState([]);
   const [refreshToggle, setRefreshToggle] = useState(false);
-
+  console.log({user});
   const getData = async () => {
     try {
       setRefreshing(true);
@@ -67,9 +67,11 @@ const Account = ({navigation}) => {
       <View style={{flex: 1}}>
         <View style={{marginBottom: 8}}>
           <Text style={{fontWeight: 'bold', fontSize: 17}}>{Name}</Text>
-          <Text style={{marginTop: 6, color: '#979797', fontSize: 12}}>
-            {PhoneNumber ? PhoneNumber : 'Set Your Phone Number'}
-          </Text>
+          {PhoneNumber ? (
+            <Text style={{marginTop: 6, color: '#979797', fontSize: 12}}>
+              {PhoneNumber}
+            </Text>
+          ) : null}
           <View style={{flexDirection: 'row'}}>
             <Icon
               iconStyle={{marginTop: 4, marginRight: 4}}

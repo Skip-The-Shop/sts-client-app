@@ -51,7 +51,14 @@ const Images = ({images, setImages}) => {
           justifyContent: 'space-between',
           marginTop: 12,
         }}>
-        <Text style={{fontWeight: 'bold'}}>Photos</Text>
+        <Text
+          style={{
+            fontSize: 16,
+            fontWeight: 'bold',
+            marginBottom: 12,
+          }}>
+          Photos
+        </Text>
         <View
           style={{
             flexDirection: 'row',

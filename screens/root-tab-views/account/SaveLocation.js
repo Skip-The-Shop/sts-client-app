@@ -43,7 +43,7 @@ const UpdateLocations = ({route, navigation}) => {
           key: GOOGLE_API_KEY,
           language: 'en',
         }}
-        placeholder="Add a new pickup location"
+        placeholder="Search for an address"
         enablePoweredByContainer={false}>
         {locationToSave ? (
           <Button text={'Save Location'} onPress={saveLocationForUser} />

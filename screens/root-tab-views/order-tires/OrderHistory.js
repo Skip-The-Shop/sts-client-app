@@ -1,5 +1,11 @@
 import React, {useEffect, useState, useContext} from 'react';
-import {View, TouchableOpacity, Text, StyleSheet} from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  ScrollView,
+} from 'react-native';
 import {COLORS} from '../../../constants';
 import {Icon} from 'react-native-elements';
 import {AuthContext} from '../../../hooks/getAuth';
@@ -13,6 +19,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.WHITE,
     padding: 12,
     flex: 1,
+    flexGrow: 1,
   },
   iconWrapper: {
     backgroundColor: COLORS.BLUE,
@@ -73,18 +80,24 @@ const OrderHistory = ({navigation}) => {
   }, []);
 
   return (
-    <FlatList
-      refreshing={loading}
-      onRefresh={getOrders}
-      contentContainerStyle={container}
-      data={orders}
-      renderItem={renderItem}
-      ListEmptyComponent={() => (
-        <View style={{marginTop: '50%'}}>
-          <Text style={{textAlign: 'center'}}>No Previous Tire Orders</Text>
-        </View>
-      )}
-    />
+    <ScrollView
+      contentContainerStyle={{
+        flexGrow: 1,
+        backgroundColor: '#FFF',
+      }}>
+      <FlatList
+        refreshing={loading}
+        onRefresh={getOrders}
+        contentContainerStyle={container}
+        data={orders}
+        renderItem={renderItem}
+        ListEmptyComponent={() => (
+          <View style={{marginTop: '50%'}}>
+            <Text style={{textAlign: 'center'}}>No Previous Tire Orders</Text>
+          </View>
+        )}
+      />
+    </ScrollView>
   );
 };
 

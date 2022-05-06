@@ -40,7 +40,9 @@ const AccountInfoRow = ({
         </TouchableOpacity>
       </View>
       <FlatList
-        ListEmptyComponent={() => <Text>Nothing to display</Text>}
+        ListEmptyComponent={() => (
+          <Text style={{marginTop: 8}}>Nothing to display</Text>
+        )}
         data={items.slice(0, 3)}
         renderItem={renderItem}
       />

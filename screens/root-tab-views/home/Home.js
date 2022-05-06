@@ -19,6 +19,10 @@ import {COLORS} from '../../../constants';
 import {bookService} from '../../../api/service';
 import Spinner from 'react-native-loading-spinner-overlay';
 import {useFocusEffect} from '@react-navigation/native';
+import DatePicker from 'react-native-date-picker';
+import {Icon} from 'react-native-elements';
+import moment from 'moment';
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -33,7 +37,7 @@ const styles = StyleSheet.create({
   },
   addWrapper: {
     borderColor: '#000',
-    borderWidth: 1,
+    borderWidth: 2,
     padding: 16,
     marginTop: 12,
     borderRadius: 6,
@@ -45,11 +49,12 @@ const styles = StyleSheet.create({
   },
   shopNotesInput: {
     borderColor: '#000',
-    borderWidth: 1,
-    height: 220,
+    borderWidth: 2,
+    height: 100,
     marginTop: 12,
     borderRadius: 5,
     padding: 12,
+    paddingTop: 8,
   },
   buttonWrapper: {
     backgroundColor: COLORS.BLUE,
@@ -72,6 +77,10 @@ const RequestService = ({navigation}) => {
   const [vehicles, setVehicles] = useState([]);
   const [locations, setLocations] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [pickupTime, setPickupTime] = useState({
+    date: new Date(),
+    open: false,
+  });
   const handleUpdateServiceRequest = (key, value) => {
     let obj = serviceRequest;
     obj[key] = value;
@@ -116,7 +125,7 @@ const RequestService = ({navigation}) => {
       items: serviceTypes,
     },
     {
-      placeholder: 'What Vehicle Needs Attention?',
+      placeholder: 'Which Vehicle Needs Attention?',
       serviceKey: 'Vehicle',
       items: vehicles,
       addRoute: 'SaveVehicle',
@@ -130,6 +139,10 @@ const RequestService = ({navigation}) => {
       addLabel: 'Save A Pickup Location',
     },
   ];
+
+  const handlePickupTimeChange = time => {
+    console.log({time});
+  };
 
   const requestService = async () => {
     try {
@@ -145,6 +158,7 @@ const RequestService = ({navigation}) => {
           ShopNotes: null,
           UserId,
           VehicleId: Vehicle,
+          PickupTime: pickupTime.date,
         });
         await Promise.all(
           images.map(
@@ -157,9 +171,16 @@ const RequestService = ({navigation}) => {
         Alert.alert('Please complete all fields');
       }
     } catch (e) {
-      console.log({e});
       setLoading(false);
     }
+  };
+
+  const shouldBeDisabled = () => {
+    const {ServiceType, Notes, Location, Vehicle} = serviceRequest;
+    if (ServiceType && Notes && Location && Vehicle && pickupTime.date) {
+      return false;
+    }
+    return true;
   };
 
   return (
@@ -185,6 +206,47 @@ const RequestService = ({navigation}) => {
             </TouchableOpacity>
           );
         })}
+        {pickupTime.open ? (
+          <DatePicker
+            minimumDate={new Date()}
+            date={pickupTime.date}
+            open={pickupTime.open}
+            minuteInterval={15}
+            theme="auto"
+            modal
+            onConfirm={date => {
+              console.log({date});
+              setPickupTime({
+                date,
+                open: false,
+              });
+            }}
+            onCancel={() => {
+              setPickupTime({
+                ...pickupTime,
+                open: false,
+              });
+            }}
+          />
+        ) : null}
+        <TouchableOpacity
+          onPress={() =>
+            setPickupTime({
+              ...pickupTime,
+              open: !pickupTime.open,
+            })
+          }
+          style={[
+            addWrapper,
+            {flexDirection: 'row', justifyContent: 'space-between'},
+          ]}>
+          <Text style={{alignSelf: 'center'}}>
+            {pickupTime.date
+              ? moment(pickupTime.date).format('MMMM Do YYYY hh:mma')
+              : 'Requested pickup time'}
+          </Text>
+          <Icon name="calendar" type="font-awesome" />
+        </TouchableOpacity>
         <TextInput
           onChangeText={text => handleUpdateServiceRequest('Notes', text)}
           style={shopNotesInput}
@@ -193,7 +255,13 @@ const RequestService = ({navigation}) => {
         />
         <Images images={images} setImages={setImages} />
       </View>
-      <TouchableOpacity onPress={requestService} style={buttonWrapper}>
+      <TouchableOpacity
+        disabled={shouldBeDisabled()}
+        onPress={requestService}
+        style={[
+          buttonWrapper,
+          {backgroundColor: shouldBeDisabled() ? '#DDD' : '#2962FF'},
+        ]}>
         <Text style={buttonText}>Request Quote</Text>
       </TouchableOpacity>
       <Spinner visible={loading} />

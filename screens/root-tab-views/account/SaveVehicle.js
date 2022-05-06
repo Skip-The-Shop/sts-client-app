@@ -32,14 +32,22 @@ const SaveVehicle = ({route, navigation}) => {
         <Text style={{fontWeight: 'bold', fontSize: 16}}>
           Vehicle Information
         </Text>
-        <Input
-          onChangeText={text => handleUpdate({key: 'Make', value: text})}
-          placeholder="Make"
-        />
-        <Input
-          onChangeText={text => handleUpdate({key: 'Model', value: text})}
-          placeholder="Model"
-        />
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}>
+          <Input
+            inputStyle={{width: WIDTH}}
+            onChangeText={text => handleUpdate({key: 'Make', value: text})}
+            placeholder="Make"
+          />
+          <Input
+            inputStyle={{width: WIDTH}}
+            onChangeText={text => handleUpdate({key: 'Model', value: text})}
+            placeholder="Model"
+          />
+        </View>
         <View
           style={{
             flexDirection: 'row',
